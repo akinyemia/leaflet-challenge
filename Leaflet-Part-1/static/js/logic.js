@@ -2,13 +2,8 @@
 var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 
 var earthquakes = L.layerGroup();
-//default tile using street view 
-// const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//     maxZoom: 19,
-//     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-// });
 
-//tile layer using mapbox with gray map style
+//tile layer with gray map style
 var grayMap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
   attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
   tileSize: 512,
@@ -35,9 +30,6 @@ legend.onAdd = function(map) {
   div.innerHTML += '<i style="background: orange"></i><span>50-70</span><br>';
   div.innerHTML += '<i style="background: orangered"></i><span>70-90</span><br>';
   div.innerHTML += '<i style="background: red"></i><span>90+</span><br>';
-//   div.innerHTML += '<i class="icon" style="background-image: url(https://d30y9cdsu7xlg0.cloudfront.net/png/194515-200.png);background-repeat: no-repeat;"></i><span>Grænse</span><br>';
-  
-
   return div;
 };
 legend.addTo(map);
@@ -48,10 +40,6 @@ d3.json(url).then(function(data){
         return magnitude*4;
     }
     console.log(data);
-
-    // function colorSelect(depth){
-
-    // }
 
     // Determine the marker color by depth
     function colorSelect(depth) {
@@ -94,25 +82,6 @@ d3.json(url).then(function(data){
   }).addTo(earthquakes);
   // Sending our earthquakes layer to the createMap function
   earthquakes.addTo(map);
-
-    // Add legend
-//   var legend = L.control({position: "bottomright"});
-//   legend.onAdd = function() {
-//     var div = L.DomUtil.create("div", "info legend"),
-//     depth = [-10, 10, 30, 50, 70, 90];
-
-//     // div.innerHTML += "<h3 style='text-align: center'>Depth</h3>"
-//   for (var i =0; i < depth.length; i++) {
-//     div.innerHTML += 
-//     '<i style="background:' + colorSelect(depth[i] + 1) + '"></i> ' +
-//         depth[i] + (depth[i + 1] ? '&ndash;' + depth[i + 1] + '<br>' : '+');
-//       }
-      
-//     return div;
-//   };
-//   legend.addTo(map);
-
-
     
 });
 
